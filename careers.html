@@ -179,6 +179,9 @@
   .social-links{display:flex;gap:12px;}
   .social-links a{width:34px;height:34px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--silver-dim);transition:all .2s;}
   .social-links a:hover{border-color:var(--gold);color:var(--gold);}
+  @media(max-width:640px){.foot-grid{flex-direction:column;gap:32px;}.foot-brand{max-width:100%;}.foot-bottom{flex-direction:column;align-items:flex-start;gap:8px;}}
+  @media(max-width:700px){.car-cards{grid-template-columns:1fr !important;}}
+  @media(max-width:540px){.cta-band{padding:48px 0;}.cta-band h2{font-size:26px;}}
 </style>
 </head>
 <body>
@@ -227,7 +230,7 @@
     <h1 class="section-title" data-i18n="car_h1">Careers at Avantis Security</h1>
     <p class="section-sub" style="margin-bottom:48px;" data-i18n="car_sub">We are always looking for disciplined, professional individuals to join our team. If you have a background in security, law enforcement, or military service — we want to hear from you.</p>
 
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:56px;">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:56px;" class="car-cards">
       <div style="border:1px solid var(--line);padding:28px 24px;background:var(--panel-2);">
         <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold-dim);letter-spacing:0.1em;margin-bottom:10px;" data-i18n="car_req_tag">REQUIREMENT</div>
         <h3 style="font-size:18px;margin-bottom:8px;" data-i18n="car_req_h">BSP Licensed</h3>
