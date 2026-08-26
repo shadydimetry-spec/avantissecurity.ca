@@ -19,7 +19,7 @@
     --line:#2C2C2C;
     --silver:#FFFFFF;
     --silver-dim:#AAAAAA;
-    --gold:#D4AF37; --gold-btn:#C9A227;
+    --gold:#D4AF37; --gold-btn:#8A6D15;
     --gold-dim:#A88520;
     --text:#FFFFFF;
     --text-dim:#999999;
@@ -308,6 +308,11 @@ document.addEventListener('DOMContentLoaded',function(){
         <a href="services.html" data-i18n="svc6_h">Executive Protection</a>
       </div>
       <div class="foot-col">
+        <h4 data-i18n="ft_resources">Resources</h4>
+        <a href="https://www.bspquebec.ca/fr" target="_blank" rel="noopener" data-i18n="ft_bsp">Bureau de la sécurité privée (BSP)</a>
+        <a href="https://www.bspquebec.ca/fr/70/covid-19-br-faire-une-demande-en-ligne?search=covid" target="_blank" rel="noopener" data-i18n="ft_bsp_apply">Faire une demande en ligne (BSP)</a>
+      </div>
+      <div class="foot-col">
         <h4 data-i18n="ft_company">Company</h4>
         <a href="about.html" data-i18n="ft_about">About Us</a>
         <a href="careers.html" data-i18n="ft_careers">Careers</a>
@@ -345,13 +350,14 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
 </script>
 
 <script>
-var LANG = localStorage.getItem('avantis_lang') || 'en';
+var LANG = localStorage.getItem('avantis_lang') || 'fr';
 var T = {
   en: {
     nav_home:'Home', nav_services:'Services', nav_about:'About', nav_contact:'Contact', nav_careers:'Careers',
     hdr_quote:'Request a Quote', hdr_apply:'Apply Now',
     mob_quote:'Request a Quote', mob_apply:'Apply Now',
     ft_services:'Services', ft_company:'Company', ft_contact:'Contact',
+    ft_resources:'Resources', ft_bsp:'Bureau de la sécurité privée (BSP)', ft_bsp_apply:'Apply Online (BSP)',
     ft_about:'About Us', ft_careers:'Careers', ft_contact_lnk:'Contact',
     ft_region:'Greater Montreal, Brossard,<br>Laval &amp; across Quebec',
     ft_rights:'&copy; 2026 Avantis Security. All rights reserved.',
@@ -429,6 +435,7 @@ var T = {
     hdr_quote:'Demander un devis', hdr_apply:'Postuler',
     mob_quote:'Demander un devis', mob_apply:'Postuler',
     ft_services:'Services', ft_company:'Entreprise', ft_contact:'Contact',
+    ft_resources:'Ressources', ft_bsp:'Bureau de la sécurité privée (BSP)', ft_bsp_apply:'Faire une demande en ligne (BSP)',
     ft_about:'À propos', ft_careers:'Carrières', ft_contact_lnk:'Contact',
     ft_region:'Grand Montréal, Brossard,<br>Laval &amp; partout au Québec',
     ft_rights:'&copy; 2026 Avantis Sécurité. Tous droits réservés.',
@@ -506,6 +513,8 @@ var T = {
 function applyLang(lang) {
   LANG = lang;
   localStorage.setItem('avantis_lang', lang);
+  var btn = document.getElementById('lang-btn');
+  if (btn) btn.textContent = lang === 'fr' ? 'EN' : 'FR';
   document.querySelectorAll('[data-i18n]').forEach(function(el) {
     var key = el.getAttribute('data-i18n');
     if (T[lang][key] !== undefined) {
@@ -528,7 +537,7 @@ function toggleLang() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  if (LANG === 'fr') applyLang('fr');
+  applyLang(LANG);
 });
 </script>
 

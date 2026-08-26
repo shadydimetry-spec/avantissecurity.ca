@@ -67,9 +67,11 @@ header .wrap{display:flex;align-items:center;justify-content:space-between;paddi
 .file-note{font-size:11px;color:var(--text-dim);margin-top:5px;}
 
 .form-submit{width:100%;padding:14px;font-size:14px;justify-content:center;margin-top:8px;}
-.form-success{display:none;background:rgba(212,175,55,0.1);border:1px solid var(--gold);padding:24px;text-align:center;}
-.form-success h3{font-family:'Rajdhani',sans-serif;font-size:20px;color:var(--gold);margin-bottom:6px;}
-.form-success p{font-size:14px;color:var(--text-dim);}
+.form-success{display:none;background:rgba(212,175,55,0.08);border:2px solid var(--gold);padding:40px 32px;text-align:center;border-radius:4px;}
+.form-success .success-icon{font-size:48px;margin-bottom:16px;}
+.form-success h3{font-family:'Rajdhani',sans-serif;font-size:26px;color:var(--gold);margin-bottom:12px;letter-spacing:0.05em;}
+.form-success p{font-size:15px;color:var(--text-dim);line-height:1.7;margin-bottom:8px;}
+.form-success p:last-child{margin-bottom:0;}
 .form-error{display:none;background:rgba(220,50,50,0.1);border:1px solid #dc3232;padding:14px;font-size:13px;color:#ff6b6b;margin-top:12px;}
 
 /* Sidebar info */
@@ -147,8 +149,8 @@ footer{border-top:1px solid var(--line);padding:40px 0;margin-top:0;}
             <input type="tel" id="phone" name="phone" required placeholder="+1 (514) 000-0000" data-i18n="app_phone_p">
           </div>
           <div class="form-group">
-            <label for="bsp-number" data-i18n="app_bsp_l">BSP Licence Number</label>
-            <input type="text" id="bsp-number" name="bspNumber" placeholder="e.g. 12345678" data-i18n="app_bsp_p">
+            <label for="bsp-number" data-i18n="app_bsp_l">BSP Licence Number *</label>
+            <input type="text" id="bsp-number" name="bspNumber" required placeholder="e.g. 12345678" data-i18n="app_bsp_p">
           </div>
         </div>
 
@@ -166,18 +168,18 @@ footer{border-top:1px solid var(--line);padding:40px 0;margin-top:0;}
         </div>
 
         <div class="form-group">
-          <label data-i18n="app_bsp_card_l">BSP Licence Card (Photo)</label>
+          <label data-i18n="app_bsp_card_l">BSP Licence Card (Photo) *</label>
           <div class="file-upload" id="bsp-drop">
             <div class="upload-icon">&#128196;</div>
             <div class="upload-text" data-i18n="app_bsp_card_txt">Click or drag to upload BSP card photo</div>
             <div class="upload-name" id="bsp-filename">No file selected</div>
             <div class="file-note">JPG, PNG, PDF — max 10 MB</div>
-            <input type="file" id="bsp-file" name="bsp_card" accept="image/*,application/pdf" onchange="showFileName('bsp-file','bsp-filename')">
+            <input type="file" id="bsp-file" name="bsp_card" required accept="image/*,application/pdf" onchange="showFileName('bsp-file','bsp-filename')">
           </div>
         </div>
 
         <div class="form-group">
-          <label data-i18n="app_cv_l">CV / Resume</label>
+          <label data-i18n="app_cv_l">CV / Resume (optional)</label>
           <div class="file-upload" id="cv-drop">
             <div class="upload-icon">&#128209;</div>
             <div class="upload-text" data-i18n="app_cv_txt">Click or drag to upload your CV</div>
@@ -197,8 +199,11 @@ footer{border-top:1px solid var(--line);padding:40px 0;margin-top:0;}
       </form>
 
       <div class="form-success" id="form-success">
-        <h3 data-i18n="app_success_h">&#10003; Application Received!</h3>
-        <p data-i18n="app_success_p">Thank you for applying to Avantis Security. Our team will review your application and contact you within 48 hours.</p>
+        <div class="success-icon">🛡️</div>
+        <h3 data-i18n="app_success_h">Thank You for Applying!</h3>
+        <p data-i18n="app_success_p1">We've received your application and we're excited to learn more about you.</p>
+        <p data-i18n="app_success_p2">Our team will carefully review your profile and get back to you within <strong style="color:var(--gold);">48 hours</strong>.</p>
+        <p data-i18n="app_success_p3">Welcome to the first step toward joining the Avantis Security family. 💼</p>
       </div>
     </div>
 
@@ -277,18 +282,20 @@ var T = {
     app_name_l:'Full Name *', app_name_p:'Your full legal name',
     app_email_l:'Email Address *', app_email_p:'you@email.com',
     app_phone_l:'Phone Number *', app_phone_p:'+1 (514) 000-0000',
-    app_bsp_l:'BSP Licence Number', app_bsp_p:'e.g. 12345678',
+    app_bsp_l:'BSP Licence Number *', app_bsp_p:'e.g. 12345678',
     app_avail_l:'Availability *', app_avail_sel:'Select your availability...',
     app_avail_ft_d:'Full-time (Days)', app_avail_ft_e:'Full-time (Evenings)',
     app_avail_ft_n:'Full-time (Overnight)', app_avail_pt:'Part-time (Flexible)',
     app_avail_we:'Weekends Only', app_avail_all:'All shifts — fully flexible',
-    app_bsp_card_l:'BSP Licence Card (Photo)', app_bsp_card_txt:'Click or drag to upload BSP card photo',
-    app_cv_l:'CV / Resume', app_cv_txt:'Click or drag to upload your CV',
+    app_bsp_card_l:'BSP Licence Card (Photo) *', app_bsp_card_txt:'Click or drag to upload BSP card photo',
+    app_cv_l:'CV / Resume (optional)', app_cv_txt:'Click or drag to upload your CV',
     app_notes_l:'Additional Notes (optional)',
     app_notes_p:"Relevant experience, certifications, languages spoken, or anything else you'd like us to know...",
     app_submit:'Submit Application →',
-    app_success_h:'✓ Application Received!',
-    app_success_p:'Thank you for applying to Avantis Security. Our team will review your application and contact you within 48 hours.',
+    app_success_h:'Thank You for Applying!',
+    app_success_p1:"We've received your application and we're excited to learn more about you.",
+    app_success_p2:'Our team will carefully review your profile and get back to you within 48 hours.',
+    app_success_p3:'Welcome to the first step toward joining the Avantis Security family. 💼',
     app_req_h:'Requirements', app_offer_h:'What We Offer', app_q_h:'Questions?',
   },
   fr: {
@@ -298,18 +305,20 @@ var T = {
     app_name_l:'Nom complet *', app_name_p:'Votre nom légal complet',
     app_email_l:'Adresse courriel *', app_email_p:'vous@email.com',
     app_phone_l:'Numéro de téléphone *', app_phone_p:'+1 (514) 000-0000',
-    app_bsp_l:'Numéro de licence BSP', app_bsp_p:'ex. 12345678',
+    app_bsp_l:'Numéro de licence BSP *', app_bsp_p:'ex. 12345678',
     app_avail_l:'Disponibilité *', app_avail_sel:'Sélectionnez votre disponibilité...',
     app_avail_ft_d:'Temps plein (Jour)', app_avail_ft_e:'Temps plein (Soir)',
     app_avail_ft_n:'Temps plein (Nuit)', app_avail_pt:'Temps partiel (Flexible)',
     app_avail_we:'Fins de semaine seulement', app_avail_all:'Tous les quarts — complètement flexible',
-    app_bsp_card_l:'Carte de licence BSP (Photo)', app_bsp_card_txt:'Cliquez ou glissez pour téléverser la photo de votre carte BSP',
-    app_cv_l:'CV / Curriculum vitae', app_cv_txt:'Cliquez ou glissez pour téléverser votre CV',
+    app_bsp_card_l:'Carte de licence BSP (Photo) *', app_bsp_card_txt:'Cliquez ou glissez pour téléverser la photo de votre carte BSP',
+    app_cv_l:'CV / Curriculum vitae (optionnel)', app_cv_txt:'Cliquez ou glissez pour téléverser votre CV',
     app_notes_l:'Notes supplémentaires (optionnel)',
     app_notes_p:'Expérience pertinente, certifications, langues parlées, ou tout autre information que vous souhaitez partager...',
     app_submit:'Soumettre la candidature →',
-    app_success_h:'✓ Candidature reçue !',
-    app_success_p:'Merci d'avoir postulé chez Avantis Sécurité. Notre équipe examinera votre candidature et vous contactera dans les 48 heures.',
+    app_success_h:'Merci pour votre candidature !',
+    app_success_p1:'Nous avons bien reçu votre candidature et nous sommes impatients d'en apprendre davantage sur vous.',
+    app_success_p2:'Notre équipe examinera attentivement votre profil et vous recontactera dans les 48 heures.',
+    app_success_p3:'Bienvenue dans la première étape pour rejoindre la famille Avantis Sécurité. 💼',
     app_req_h:'Exigences', app_offer_h:'Ce que nous offrons', app_q_h:'Questions ?',
   }
 };
@@ -317,6 +326,7 @@ var T = {
 function applyLang(lang) {
   LANG = lang;
   try { localStorage.setItem('avantis_lang', lang); } catch(e){}
+  var btn = document.getElementById('lang-btn'); if (btn) btn.textContent = lang === 'fr' ? 'EN' : 'FR';
   document.querySelectorAll('[data-i18n]').forEach(function(el) {
     var key = el.getAttribute('data-i18n');
     if (T[lang][key] !== undefined) {
@@ -335,7 +345,7 @@ function applyLang(lang) {
 }
 function toggleLang() { applyLang(LANG === 'en' ? 'fr' : 'en'); }
 document.addEventListener('DOMContentLoaded', function() {
-  if (LANG === 'fr') applyLang('fr');
+  applyLang(LANG);
 });
 </script>
 </body>
