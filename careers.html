@@ -55,7 +55,7 @@
   .btn.outline2{background:transparent;color:var(--text);border:1px solid var(--text-dim);}
   .btn.outline2:hover{border-color:var(--silver);color:var(--silver);}
   .btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
-  .desktop-only{display:flex;align-items:center;gap:22px;flex-shrink:0;}
+  .desktop-only{display:flex;align-items:center;gap:8px;flex-shrink:0;}
   .mobile-menu-btn{display:none;align-items:center;justify-content:center;width:40px;height:40px;background:none;cursor:pointer;border:1px solid var(--line);border-radius:var(--radius);color:var(--text);flex-direction:column;gap:4px;}
   .mobile-menu-btn span{display:block;width:18px;height:1.5px;background:var(--text);}
   .mobile-menu{display:none;position:absolute;top:100%;left:0;right:0;background:var(--panel);border-bottom:1px solid var(--line);flex-direction:column;padding:8px 20px 20px;}
@@ -199,7 +199,7 @@
         <a href="careers.html" style="color:var(--gold);" data-i18n="nav_careers">Careers</a>
         
       </div>
-      <div class="desktop-only" style="display:flex;gap:8px;align-items:center;">
+      <div class="desktop-only">
         <button onclick="toggleLang()" id="lang-btn" style="background:transparent;border:1px solid var(--line);color:var(--text-dim);padding:6px 14px;font-size:12px;letter-spacing:0.1em;font-weight:700;cursor:pointer;font-family:'JetBrains Mono',monospace;transition:border-color .2s,color .2s;" onmouseover="this.style.borderColor='#fff';this.style.color='#fff'" onmouseout="this.style.borderColor='var(--line)';this.style.color='var(--text-dim)'">FR</button>
         <a href="tel:+15145127744" class="btn ghost">&#9742; (514) 512-7744</a>
         <a href="contact.html" class="btn" data-i18n="hdr_quote">Request a Quote</a>
