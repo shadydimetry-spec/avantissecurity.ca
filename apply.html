@@ -258,7 +258,17 @@ footer{border-top:1px solid var(--line);padding:40px 0;margin-top:0;}
 function showFileName(inputId, labelId) {
   var input = document.getElementById(inputId);
   var label = document.getElementById(labelId);
-  if (input.files && input.files[0]) { label.textContent = input.files[0].name; }
+  var dropBox = input.closest('.file-upload');
+  if (input.files && input.files[0]) {
+    var name = input.files[0].name;
+    var size = (input.files[0].size / 1024).toFixed(0) + ' KB';
+    label.innerHTML = '✅ ' + name + ' <span style="color:#999;font-size:11px;">(' + size + ')</span>';
+    label.style.color = '#4caf50';
+    if (dropBox) {
+      dropBox.style.borderColor = '#4caf50';
+      dropBox.style.background = 'rgba(76,175,80,0.06)';
+    }
+  }
 }
 
 // ── Show success message if redirected back with ?sent=1 ──
