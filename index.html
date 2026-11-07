@@ -39,9 +39,7 @@
 
   /* perimeter */
   .perimeter{position:relative;height:1px;background:repeating-linear-gradient(90deg,var(--line) 0 8px,transparent 8px 14px);overflow:visible;}
-  .perimeter::after{content:"";position:absolute;top:-2.5px;left:0;width:5px;height:5px;border-radius:50%;background:var(--gold);box-shadow:0 0 6px var(--gold);animation:sweep 9s linear infinite;}
-  @keyframes sweep{from{left:0%;}to{left:calc(100% - 5px);}}
-  @media(prefers-reduced-motion:reduce){.perimeter::after{animation:none;left:0;}}
+  .perimeter::after{content:"";position:absolute;top:-2.5px;left:0;width:5px;height:5px;border-radius:50%;background:var(--gold);box-shadow:0 0 6px var(--gold);}
 
   /* header */
   header{position:sticky;top:0;z-index:50;background:rgba(8,8,8,0.97);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
@@ -553,6 +551,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <script>
 
+</script>
+
+<script>
+(function(){
+  var dots = document.querySelectorAll('.perimeter');
+  dots.forEach(function(el){
+    var dot = el.querySelector('::after') || document.createElement('span');
+    // Use a real span instead of ::after for JS control
+    var span = document.createElement('span');
+    span.style.cssText = 'position:absolute;top:-2.5px;left:0;width:5px;height:5px;border-radius:50%;background:#c9a84c;box-shadow:0 0 6px #c9a84c;display:block;';
+    el.appendChild(span);
+    var start = null;
+    var duration = 9000;
+    function animate(ts){
+      if(!start) start = ts;
+      var elapsed = (ts - start) % duration;
+      var pct = elapsed / duration;
+      var w = el.offsetWidth - 5;
+      span.style.left = (pct * w) + 'px';
+      requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+  });
+})();
 </script>
 </body>
 </html>

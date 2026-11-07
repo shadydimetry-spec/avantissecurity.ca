@@ -444,5 +444,27 @@ document.addEventListener('DOMContentLoaded', function() {
   applyLang(LANG);
 });
 </script>
+
+<script>
+(function(){
+  var dots = document.querySelectorAll('.perimeter');
+  dots.forEach(function(el){
+    var span = document.createElement('span');
+    span.style.cssText = 'position:absolute;top:-2.5px;left:0;width:5px;height:5px;border-radius:50%;background:#c9a84c;box-shadow:0 0 6px #c9a84c;display:block;';
+    el.appendChild(span);
+    var start = null;
+    var duration = 9000;
+    function animate(ts){
+      if(!start) start = ts;
+      var elapsed = (ts - start) % duration;
+      var pct = elapsed / duration;
+      var w = el.offsetWidth - 5;
+      span.style.left = (pct * w) + 'px';
+      requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+  });
+})();
+</script>
 </body>
 </html>
