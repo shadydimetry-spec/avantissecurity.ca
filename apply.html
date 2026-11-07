@@ -124,30 +124,28 @@ footer{border-top:1px solid var(--line);padding:40px 0;margin-top:0;}
   <div class="apply-layout">
 
     <div>
-      <form class="apply-form" id="apply-form" action="https://formspree.io/f/xzeeqerk" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="_subject" value="New Job Application - Avantis Security">
-  <input type="hidden" name="_next" value="https://avantissecurity.ca/apply.html?sent=1">
+      <form class="apply-form" id="apply-form" onsubmit="submitApplication(event)">
         <h2 data-i18n="app_form_h">Application Form</h2>
 
         <div class="form-row">
           <div class="form-group">
             <label for="full-name" data-i18n="app_name_l">Full Name *</label>
-            <input type="text" id="full-name" name="fullName" required placeholder="Your full legal name" data-i18n="app_name_p">
+            <input type="text" id="full-name" name="fullName" required placeholder="Your full legal name">
           </div>
           <div class="form-group">
             <label for="email" data-i18n="app_email_l">Email Address *</label>
-            <input type="email" id="email" name="email" required placeholder="you@email.com" data-i18n="app_email_p">
+            <input type="email" id="email" name="email" required placeholder="you@email.com">
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group">
             <label for="phone" data-i18n="app_phone_l">Phone Number *</label>
-            <input type="tel" id="phone" name="phone" required placeholder="+1 (514) 000-0000" data-i18n="app_phone_p">
+            <input type="tel" id="phone" name="phone" required placeholder="+1 (514) 000-0000">
           </div>
           <div class="form-group">
             <label for="bsp-number" data-i18n="app_bsp_l">BSP Licence Number *</label>
-            <input type="text" id="bsp-number" name="bspNumber" required placeholder="e.g. 12345678" data-i18n="app_bsp_p">
+            <input type="text" id="bsp-number" name="bspNumber" required placeholder="e.g. 12345678">
           </div>
         </div>
 
@@ -181,14 +179,14 @@ footer{border-top:1px solid var(--line);padding:40px 0;margin-top:0;}
             <div class="upload-icon">&#128209;</div>
             <div class="upload-text" data-i18n="app_cv_txt">Click or drag to upload your CV</div>
             <div class="upload-name" id="cv-filename">No file selected</div>
-            <div class="file-note">PDF, DOC, DOCX - max 5 MB. Or email directly to info@avantissecurity.ca</div>
+            <div class="file-note">PDF, DOC, DOCX - max 5 MB</div>
             <input type="file" id="cv-file" name="cv_resume" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" onchange="showFileName('cv-file','cv-filename')">
           </div>
         </div>
 
         <div class="form-group">
           <label for="message" data-i18n="app_notes_l">Additional Notes (optional)</label>
-          <textarea id="message" name="message" placeholder="Relevant experience, certifications, languages spoken, or anything else you'd like us to know..." data-i18n="app_notes_p"></textarea>
+          <textarea id="message" name="message" placeholder="Relevant experience, certifications, languages spoken, or anything else you'd like us to know..."></textarea>
         </div>
 
         <button type="submit" class="btn form-submit" id="submit-btn" data-i18n="app_submit">Submit Application &rarr;</button>
@@ -251,6 +249,7 @@ footer{border-top:1px solid var(--line);padding:40px 0;margin-top:0;}
 </footer>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 function showFileName(inputId, labelId) {
   try {
@@ -300,6 +299,8 @@ var T = {
     app_avail_we:'Weekends Only', app_avail_all:'All shifts - fully flexible',
     app_bsp_card_l:'BSP Licence Card (Photo) *', app_bsp_card_txt:'Click or drag to upload BSP card photo',
     app_cv_l:'CV / Resume (optional)', app_cv_txt:'Click or drag to upload your CV',
+    app_attach_note_title:'Attach your files:',
+    app_attach_note:'After clicking Submit, your email app will open with all your info pre-filled. Simply attach your BSP card photo and CV before sending.',
     app_notes_l:'Additional Notes (optional)',
     app_notes_p:"Relevant experience, certifications, languages spoken, or anything else you'd like us to know...",
     app_submit:'Submit Application \u2192',
@@ -339,6 +340,8 @@ var T = {
     app_avail_we:'Fins de semaine seulement', app_avail_all:'Tous les quarts - compl\u00E8tement flexible',
     app_bsp_card_l:'Carte de licence BSP (Photo) *', app_bsp_card_txt:'Cliquez ou glissez pour t\u00E9l\u00E9verser la photo de votre carte BSP',
     app_cv_l:'CV / Curriculum vitae (optionnel)', app_cv_txt:'Cliquez ou glissez pour t\u00E9l\u00E9verser votre CV',
+    app_attach_note_title:'Joindre vos fichiers\u00A0:',
+    app_attach_note:'Apr\u00E8s avoir cliqu\u00E9 sur Soumettre, votre application de messagerie s\u2019ouvrira avec toutes vos informations pr\u00E9remplies. Veuillez joindre votre photo de carte BSP et votre CV avant d\u2019envoyer.',
     app_notes_l:'Notes suppl\u00E9mentaires (optionnel)',
     app_notes_p:'Exp\u00E9rience pertinente, certifications, langues parl\u00E9es, ou tout autre information que vous souhaitez partager...',
     app_submit:'Soumettre la candidature \u2192',
@@ -383,6 +386,56 @@ function applyLang(lang) {
   document.documentElement.lang = lang === 'fr' ? 'fr' : 'en';
 }
 function toggleLang() { applyLang(LANG === 'en' ? 'fr' : 'en'); }
+const _supa = supabase.createClient(
+  'https://magdvohpihdbboamhrfyw.supabase.co',
+  'sb_publishable_UMCRo1EGz4OGzZwUJi3F7A_ws4iZMGj'
+);
+
+async function uploadFile(file, folder) {
+  if (!file) return null;
+  var ext = file.name.split('.').pop();
+  var path = folder + '/' + Date.now() + '-' + Math.random().toString(36).slice(2) + '.' + ext;
+  var {data, error} = await _supa.storage.from('applications').upload(path, file);
+  if (error) { console.error(error); return null; }
+  return path;
+}
+
+async function submitApplication(e) {
+  e.preventDefault();
+  var btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+  var err = document.getElementById('form-error');
+  err.style.display = 'none';
+
+  var bspFile = document.getElementById('bsp-file') ? document.getElementById('bsp-file').files[0] : null;
+  var cvFile = document.getElementById('cv-file') ? document.getElementById('cv-file').files[0] : null;
+
+  var bspUrl = await uploadFile(bspFile, 'bsp-cards');
+  var cvUrl = await uploadFile(cvFile, 'cv-resumes');
+
+  var {error} = await _supa.from('job_applications').insert([{
+    full_name: document.getElementById('full-name').value,
+    email: document.getElementById('email').value,
+    phone: document.getElementById('phone').value,
+    bsp_number: document.getElementById('bsp-number').value,
+    availability: document.getElementById('availability').value,
+    message: document.getElementById('message').value || null,
+    bsp_card_url: bspUrl,
+    cv_url: cvUrl
+  }]);
+
+  if (error) {
+    err.textContent = 'Something went wrong. Please email us at info@avantissecurity.ca';
+    err.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Submit Application →';
+  } else {
+    document.getElementById('apply-form').style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+  }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   applyLang(LANG);
 });

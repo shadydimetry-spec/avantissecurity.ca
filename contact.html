@@ -249,11 +249,7 @@
 
     <div class="contact-grid">
       <div>
-        <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
-          <input type="hidden" name="access_key" value="d7a15ff8-c51e-431d-a3a5-e05b91bec451">
-          <input type="hidden" name="subject" value="New Quote Request — Avantis Security">
-          <input type="hidden" name="from_name" value="Avantis Security Website">
-          <input type="hidden" name="redirect" value="https://avantissecurity.ca/contact.html?sent=1">
+        <form id="contact-form" onsubmit="submitContactForm(event)">
           <div class="form-row">
             <div class="form-group"><label for="fname" data-i18n="con_fname_l">Full Name *</label><input type="text" id="fname" name="name" required placeholder="Your full name" data-i18n-ph="con_fname_p"></div>
             <div class="form-group"><label for="femail" data-i18n="con_email_fl">Email *</label><input type="email" id="femail" name="email" required placeholder="your@email.com" data-i18n-ph="con_email_fp"></div>
@@ -272,7 +268,7 @@
             </div>
           </div>
           <div class="form-group"><label for="fmessage" data-i18n="con_msg_l">Message *</label><textarea id="fmessage" name="message" required placeholder="Tell us about your security needs..." data-i18n-ph="con_msg_p"></textarea></div>
-          <button type="submit" class="btn" style="width:100%;justify-content:center;" data-i18n="con_submit">Send Message &rarr;</button>
+          <button type="submit" id="con-submit-btn" class="btn" style="width:100%;justify-content:center;" data-i18n="con_submit">Send Message &rarr;</button>
         </form>
         <div class="form-success" id="form-success" data-i18n="con_success" style="display:none;">&#10003; Thank you! We'll be in touch within 24 hours.</div>
         <div class="service-tags" style="margin-top:32px;">
@@ -288,11 +284,34 @@
     </div>
   </div>
 </section>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-if(window.location.search.includes('sent=1')){
-  document.getElementById('contact-form').style.display='none';
-  document.getElementById('form-success').style.display='block';
+const _supa = supabase.createClient(
+  'https://magdvohpihdbboamhrfyw.supabase.co',
+  'sb_publishable_UMCRo1EGz4OGzZwUJi3F7A_ws4iZMGj'
+);
+
+async function submitContactForm(e) {
+  e.preventDefault();
+  var btn = document.getElementById('con-submit-btn');
+  if(btn) btn.disabled = true;
+  var data = {
+    name: document.getElementById('fname').value,
+    email: document.getElementById('femail').value,
+    phone: document.getElementById('fphone').value || null,
+    service: document.getElementById('fservice').value || null,
+    message: document.getElementById('fmessage').value
+  };
+  var {error} = await _supa.from('quote_requests').insert([data]);
+  if(error){
+    alert('Something went wrong. Please email us at info@avantissecurity.ca');
+    if(btn) btn.disabled = false;
+  } else {
+    document.getElementById('contact-form').style.display='none';
+    document.getElementById('form-success').style.display='block';
+  }
 }
+
 // apply placeholder translations
 document.addEventListener('DOMContentLoaded',function(){
   document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
