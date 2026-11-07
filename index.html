@@ -51,9 +51,9 @@
   .navlinks a:hover{color:var(--silver);}
   .btn{display:inline-flex;align-items:center;gap:8px;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.08em;text-transform:uppercase;padding:11px 22px;border-radius:var(--radius);border:1px solid var(--gold-btn);color:var(--ink);background:var(--gold-btn);transition:opacity .2s;white-space:nowrap;cursor:pointer;}
   .btn:hover{opacity:0.85;}
-  .btn.ghost{background:transparent;color:var(--gold);}
-  .btn.outline2{background:transparent;color:var(--text);border:1px solid var(--text-dim);}
-  .btn.outline2:hover{border-color:var(--silver);color:var(--silver);}
+  .btn.ghost{background:transparent;color:var(--gold);border:1px solid var(--gold);}
+  
+  
   .btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
   .desktop-only{display:flex;align-items:center;gap:8px;flex-shrink:0;}
   .mobile-menu-btn{display:none;align-items:center;justify-content:center;width:40px;height:40px;background:none;cursor:pointer;border:1px solid var(--line);border-radius:var(--radius);color:var(--text);flex-direction:column;gap:4px;}
@@ -198,6 +198,8 @@
 .hero-video{position:absolute;top:50%;left:50%;min-width:100%;min-height:100%;width:auto;height:auto;transform:translate(-50%,-50%);object-fit:cover;object-position:center center;z-index:0;pointer-events:none;}
 .hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(0deg,rgba(8,8,8,0.72) 0%,rgba(8,8,8,0.2) 50%,rgba(8,8,8,0.05) 100%);z-index:1;}
 .hero-inner{position:absolute;bottom:0;left:0;width:100%;z-index:2;padding:0 0 56px;}
+
+  @media(max-width:768px){.hide-mobile{display:none!important;}}
 </style>
 </head>
 <body>
@@ -251,10 +253,10 @@
       <span style="color:#fff;display:block;" data-i18n="home_h1a">Protection You</span>
       <span style="color:var(--gold);display:block;" data-i18n="home_h1b">Can Count On.</span>
     </h1>
-    <p style="font-size:18px;color:var(--text-dim);margin:24px 0 38px;max-width:600px;" data-i18n="home_sub">Professional security services across Greater Montreal, Brossard, Laval, and Quebec. Trusted by businesses, events, and individuals who demand the best.</p>
+    
     <div style="display:flex;gap:14px;flex-wrap:wrap;">
       <a href="contact.html" class="btn" data-i18n="home_btn1">Request a Quote &rarr;</a>
-      <a href="services.html" class="btn outline2" data-i18n="home_btn2">Our Services</a>
+      <a href="services.html" class="btn ghost" data-i18n="home_btn2">Our Services</a>
     </div>
   </div>
 </div>
