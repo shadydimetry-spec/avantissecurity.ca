@@ -249,11 +249,11 @@
 
     <div class="contact-grid">
       <div>
-        <form id="contact-form" action="https://formsubmit.co/info@avantissecurity.ca" method="POST" enctype="multipart/form-data">
-          <input type="hidden" name="_subject" value="New Quote Request — Avantis Security">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_next" value="https://avantissecurity.ca/contact.html?sent=1">
-          <input type="hidden" name="_template" value="table">
+        <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
+          <input type="hidden" name="access_key" value="d7a15ff8-c51e-431d-a3a5-e05b91bec451">
+          <input type="hidden" name="subject" value="New Quote Request — Avantis Security">
+          <input type="hidden" name="from_name" value="Avantis Security Website">
+          <input type="hidden" name="redirect" value="https://avantissecurity.ca/contact.html?sent=1">
           <div class="form-row">
             <div class="form-group"><label for="fname" data-i18n="con_fname_l">Full Name *</label><input type="text" id="fname" name="name" required placeholder="Your full name" data-i18n-ph="con_fname_p"></div>
             <div class="form-group"><label for="femail" data-i18n="con_email_fl">Email *</label><input type="email" id="femail" name="email" required placeholder="your@email.com" data-i18n-ph="con_email_fp"></div>
