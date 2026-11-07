@@ -307,6 +307,7 @@ async function submitContactForm(e) {
     alert('Something went wrong. Please email us at info@avantissecurity.ca');
     if(btn) btn.disabled = false;
   } else {
+    await _supa.functions.invoke('notify-application', { body: { full_name: data.name, email: data.email, phone: data.phone, bsp_number: 'N/A - Quote Request', availability: data.service || 'N/A', message: data.message } });
     document.getElementById('contact-form').style.display='none';
     document.getElementById('form-success').style.display='block';
   }

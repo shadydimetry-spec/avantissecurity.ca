@@ -414,7 +414,7 @@ async function submitApplication(e) {
   var bspUrl = await uploadFile(bspFile, 'bsp-cards');
   var cvUrl = await uploadFile(cvFile, 'cv-resumes');
 
-  var {error} = await _supa.from('job_applications').insert([{
+  var payload = {
     full_name: document.getElementById('full-name').value,
     email: document.getElementById('email').value,
     phone: document.getElementById('phone').value,
@@ -423,7 +423,9 @@ async function submitApplication(e) {
     message: document.getElementById('message').value || null,
     bsp_card_url: bspUrl,
     cv_url: cvUrl
-  }]);
+  };
+
+  var {error} = await _supa.from('job_applications').insert([payload]);
 
   if (error) {
     err.textContent = 'Something went wrong. Please email us at info@avantissecurity.ca';
@@ -431,6 +433,8 @@ async function submitApplication(e) {
     btn.disabled = false;
     btn.textContent = 'Submit Application →';
   } else {
+    // Send email notification
+    await _supa.functions.invoke('notify-application', { body: payload });
     document.getElementById('apply-form').style.display = 'none';
     document.getElementById('form-success').style.display = 'block';
   }
